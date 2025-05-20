@@ -1,8 +1,10 @@
 import 'dotenv/config'
 import Fastify from 'fastify'
-import { submitForReview } from './submission.js'
-import groupSubmissionsRoutes from '/routes/groupSubmissions.js'
+import citiesAPI        from './citiesAPI.js'
+import cityRecipes      from './cityRecipes.js'
+import deleteCityRecipe from './deleteCityRecipes.js'
 
+import { submitForReview } from './submission.js'
 
 const fastify = Fastify({
   logger: true,
