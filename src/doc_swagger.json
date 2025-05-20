@@ -1,0 +1,143 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "title": "MIASHS Exams API",
+    "description": "API documentation for MIASHS Exams",
+    "version": "1.0.0"
+    },
+    "host": "api-ugi2pflmha-ew.a.run.app",
+    "schemes": ["https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+    "/cities": {
+    "get": {
+    "description": "Return the list of cities which can be filtered by name or country",
+    "tags": ["cities"],
+    "parameters": [
+    { "in": "query", "name": "search", "type": "string", "required": false },
+    { "in": "query", "name": "apiKey", "type": "string", "required": false }
+    ],
+    "responses": {
+    "200": {
+    "description": "Array of cities",
+    "schema": {
+    "type": "array",
+    "items": {
+    "type": "object",
+    "required": ["id","cityName","countryName"],
+    "properties": {
+    "id": { "type": "string" },
+    "cityName": { "type": "string" },
+    "countryName": { "type": "string" }
+    }
+    }
+    }
+    },
+    "4xx": {
+    "description": "Error",
+    "schema": {
+    "type": "object",
+    "required": ["success","error"],
+    "properties": {
+    "success": { "type": "boolean" },
+    "error": { "type": "string" }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/cities/{cityId}/insights": {
+    "get": {
+    "description": "Get the insights of a city",
+    "tags": ["cities"],
+    "parameters": [
+    { "in": "path", "name": "cityId", "type": "string", "required": true },
+    { "in": "query", "name": "apiKey", "type": "string", "required": false }
+    ],
+    "responses": {
+    "200": {
+    "description": "City insights",
+    "schema": {
+    "type": "object",
+    "required": ["coordinates","population","knownFor"],
+    "properties": {
+    "coordinates": {
+    "type": "array",
+    "items": {
+    "type": "object",
+    "required": ["latitude","longitude"],
+    "properties": {
+    "latitude": { "type": "number" },
+    "longitude": { "type": "number" }
+    }
+    }
+    },
+    "population": { "type": "number" },
+    "knownFor": {
+    "type": "array",
+    "items": {
+    "type": "object",
+    "required": ["format","content"],
+    "properties": {
+    "format": { "type": "string" },
+    "content": { "type": "string" }
+    }
+    }
+    }
+    }
+    }
+    },
+    "4xx": { "$ref": "#/paths/~~1cities~~1{cityId}~1insights/get/responses/4xx/schema" }
+    }
+    }
+    },
+    "/cities/{cityId}/recipes": {
+    "post": {
+    "description": "Add a recipe to a city",
+    "tags": ["cities"],
+    "parameters": [
+    { "in": "path", "name": "cityId", "type": "string", "required": true },
+    { "in": "query", "name": "apiKey", "type": "string", "required": false },
+    { "in": "body", "name": "body", "schema": {
+    "type": "object",
+    "required": ["content"],
+    "properties": { "content": { "type": "string" } }
+    }
+    }
+    ],
+    "responses": {
+    "201": {
+    "description": "Recipe created",
+    "schema": {
+    "type": "object",
+    "required": ["id","content"],
+    "properties": {
+    "id": { "type": "integer" },
+    "content": { "type": "string" }
+    }
+    }
+    },
+    "4xx": { "$ref": "#/paths/~~1cities~~1{cityId}~1insights/get/responses/4xx/schema" }
+    }
+    }
+    },
+    "/cities/{cityId}/recipes/{recipeId}": {
+    "delete": {
+    "description": "Delete a recipe from a city",
+    "tags": ["cities"],
+    "parameters": [
+    { "in": "path", "name": "cityId", "type": "string", "required": true },
+    { "in": "path", "name": "recipeId", "type": "string", "required": true },
+    { "in": "query", "name": "apiKey", "type": "string", "required": false }
+    ],
+    "responses": {
+    "204": { "description": "Deleted" },
+    "4xx": { "$ref": "#/paths/~~1cities~~1{cityId}~1insights/get/responses/4xx/schema" }
+    }
+    }
+    }
+    }
+    }
+    
