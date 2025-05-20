@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import Fastify from 'fastify'
 import { submitForReview } from './submission.js'
+import groupSubmissionsRoutes from '/routes/groupSubmissions.js'
+
 
 const fastify = Fastify({
   logger: true,
