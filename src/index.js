@@ -10,6 +10,21 @@ const fastify = Fastify({
   logger: true,
 })
 
+// 1) Monte la route qui liste les villes
+fastify.register(citiesAPI, {
+  prefix: '/cities'
+})
+
+// 2) Monte la route qui ajoute une recette
+fastify.register(cityRecipes, {
+  prefix: '/cities'
+})
+
+// 3) Monte la route qui supprime une recette
+fastify.register(deleteCityRecipe, {
+  prefix: '/cities'
+})
+
 fastify.listen(
   {
     port: process.env.PORT || 3000,
